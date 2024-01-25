@@ -1,0 +1,268 @@
+<h1 id="cocopops-lyrics-annotations">CoCoPops Lyrics Annotations</h1>
+<p>CoCoPops annotations include detailed information about the music’s lyrics, in the following spines:</p>
+<ul>
+<li><code>**stress</code> for prosodic stress</li>
+<li><code>**ipa</code> pronunciation</li>
+<li><code>**silbe</code> for lexical information and basic syntax boundaries.</li>
+<li><code>**depend</code> for syntactic dependences.</li>
+<li><code>**POS</code> for part of speech.</li>
+<li><code>**Rhyme</code></li>
+</ul>
+<h2 id="lexical-information">Lexical Information</h2>
+<p>The <code>**silbe</code> spine encodes lexical information (as well as high-level basic syntactic/semantic grouping. Details below).</p>
+<p>Each syllable is represented in its own record. However, syllables are grouped into <em><a href="https://en.wikipedia.org/wiki/Lexical_item">lexical items</a></em>. In most cases, lexical items are <em>words</em>. However, the concept of a “word” as applied in standard English orthography and parlance does not necessarily describe a coherent linguistic element. Many multi-word sequences in English are best considered a single unit of semantic/syntactic meaning: examples include “traffic light,” “by the way,” and “motor vehicle.” Such multi-word sequences are single lexical items.</p>
+<p>Multi-syllable lexical items are separated by either <code>-</code> (within word) or <code>_</code> (between words): these characters (<code>-</code> or <code>_</code>) are attached to each syllable in a multi-syllable unit as either a prefix (first syllable of an item), affix (last syllable of an item), or both (middle syllable). How characters are split across words is generally irrelevant—your general guidelines are too first maximize consistency, and two maximize readability. Reflecting pronunciation is not, and <em>should not</em>, be a goal (more below). The word “because” should be split <code>be- -cause</code> always, regardless of pronunciation (unless it is shortened to one syllable! See below.).</p>
+<pre><code>**silbe
+LUCIOUS_
+_LEFTFOOT
+loves
+his
+mo-
+-tor_
+_ve-
+-hi-
+-cles
+*-</code></pre>
+<p>All words/syllables are written in lower case, except for proper nouns, which are capitalized.</p>
+<pre><code>**silbe
+i
+love
+you
+JOHN
+*-</code></pre>
+<p>Initials and acronyms are written as single letters—uppercase only if the initials are proper noun, lower-case otherwise. No period (or other punctuation) is placed after initials and of acronyms!</p>
+<pre><code>**silbe
+It&#39;s
+fun
+to
+stay
+at
+the
+Y_
+_M_
+_C_
+_A
+*-</code></pre>
+<h3 id="spelling">Spelling</h3>
+<p>All words are spelled in “dictionary correct” American English, regardless of pronunciation. If an ostensibly multi-syllable unit is pronounced as a single syllable, it is written out fully but, on one record: Thus, if “because” is pronounced “’cuz”, we still write <code>because</code>, but <em>not</em> <code>be-cause</code>.</p>
+<pre><code>**silbe
+because
+i 
+hate 
+you
+*-</code></pre>
+<p>Contractions, or multiple words slurred into a single syllable are spelled out as two separate words. Thus, “don’t” is written <code>do not</code>:</p>
+<pre><code>**silbe
+you
+do not 
+know
+the
+half
+of 
+it
+*-</code></pre>
+<p>All numerals and symbols should be spelled out, with numbers as single lexical items: “three” not “3”; “three_hundred_and_five” not “305.”</p>
+<h2 id="syntax">Syntax</h2>
+<p>Syntactic information is encoded in two places: high-level grouping information is encoded as punctuation in the <code>**silbe</code> spine, while the full detail of syntactic dependency is encoded in the <code>**depend</code> spine.</p>
+<h3 id="punctuation">Punctuation</h3>
+<p><code>**silbe</code> indicates high level syntactic groupings using punctuation. Note that the use of punctuation <em>does not</em> exactly match standard usage in formal or informal writing.</p>
+<p>Within a lyric, the <em>end</em> of syntactic units are marked at the end of the last syllable in the syntactic unit. These punctuation divide the lyrics into syntactically independent units.</p>
+<p>Complete syntactic closure is marked with <code>.</code>—this indicates that there is <em>no</em> syntactic dependency across this boundary. Syntactic units that are connected by explicit coordinating conjunctions (e.g., “and”) are closed with a <code>,</code>, with the <code>,</code> placed on the last syllable before the coordinating conjunction.</p>
+<p>In the normative, case syntactic units are “complete” clauses, consisting of a subject (noun phrase) and predicate (verb phrase). However, it is non uncommon in lyrics to have <em>list</em> of noun, verb, or even prepositional phrases, which are not explicitely connected into a larger structure. In many cases, we can interpret such lists as examples of asyndetic coordination—coordination with an elided (non explicit) conjunction. We use <code>;</code> to indicate boundaries between independent phrases: we can interpret this <code>;</code> as “either a period or a comma.” These cases should be associated with parataxis or list tag in <code>**depend</code>.</p>
+<pre><code>**silbe
+fif-
+-ty
+inch
+screen;
+mo-
+-ney
+green;
+lea-
+-ther
+so-
+-fa.
+i
+got
+two
+rides;
+a
+li-
+-mo-
+li-
+-mou-
+-sine
+with
+a
+chau-
+-ffer.
+*-</code></pre>
+<p>An especially common case is a noun phrase serving as subject, followed by a list of verb phrases which are (implicitely) actions performed by the original subject.</p>
+<pre><code>**silbe
+it
+was
+all
+a
+dream.
+i
+used
+to
+read
+WORD_
+_UP_
+_ma-
+-ga-
+-zine.
+SALT_
+-N&#39;_
+_PE-
+-PPA
+and
+HEAVY_
+_D
+up
+in
+the
+limousine.
+eve-
+-ry
+sa-
+-tur-
+-day (we watch)
+RAP_
+_ATT-
+-ACK (with)
+MIS-
+-TER
+_MA-
+-GIC (and)
+MAR-
+-LEY_
+_MARL.
+*-</code></pre>
+<p>A final option is the <code>:</code> symbol, which can be used to indicate a boundary between phrases of different types that do not form a legal/normative clause, but ought to be interpreted as connected in some way.</p>
+<h3 id="depend"><code>**depend</code></h3>
+<p>Though basic syntactic units are indicated in <code>**silbe</code> punctuation, detailed syntactic information is indicated in the <code>**depend</code> spine. <code>**depend</code> annotations are aligned with the first syllable of each lexical item—later syllables/words are simply null tokens. Each <code>**depend</code> token indicates a dependency type and a head word. Each token begins with a dependency type: the decency types are listed below, followed by an arrow (<code>&gt;</code> or <code>&lt;</code>) indicating the relative position (forward or backward in time) of the head word relative to the current (dependent) word. After the arrow, the entire head word is written out; <!--If the head word is the immediately proceeding/succeeding word, a single arrow is all that is indicated;--> For example, <code>&gt;foo</code> indicates that the <em>next</em> instance of the word “foo” is the head, while <code>&lt;foo</code> indicates that the previous instance of the word “foo” is the head.</p>
+<pre><code>**silbe **depend
+to      R
+all     det&gt;ladies
+the     det&gt;ladies
+la-     pobj&lt;to
+-dies   .
+in      prep&lt;ladies
+the     det&gt;place
+place   pobj&lt;in
+with    prep&lt;ladies
+style   pobj&lt;with
+and     cc&lt;style
+grace.  conj&lt;style
+*-      *-</code></pre>
+<p>In rare cases, there may be one or more instance of the same head word between the true head and the word: multiple <code>&gt;</code> or <code>&lt;</code> are used to indicate the second (<code>&gt;&gt;</code>) or third (<code>&gt;&gt;&gt;</code>) closest instance of the word, in either direction.</p>
+<h4 id="elision">Elision</h4>
+<p>In artistic language, it is common for certain words to be <em>elided</em>—not spoken, but still by implicitly understood. Asyndetic coordination (examples above) is a clear case, with elided conjunctions.</p>
+<p>In general cases of elided constructs, we use <code>()</code>. An empty <code>()</code> can be used to indicate “something elided” or the parentheses can be filled with a postulated elided words. Notice that by writing <code>()</code>, an annotator is indicating that there is <em>not</em> a syntactic boundary here. These cases should be associated with orphan tags in <code>**depend</code>.</p>
+<h4 id="ambiguity">Ambiguity</h4>
+<p>In some cases, syntax is truly ambiguous. The <code>()</code> is used to indicate ambiguity. Other punctuation can be placed inside <code>()</code>, such as <code>(.)</code> or <code>(,)</code>. This indicates there “may or may not be” a boundary here. If there is ambiguity between two possiblities, place a <code>|</code> between possiblities: <code>(.|,)</code>.</p>
+<p>In many cases, ambiguity is not constrained two one syllable, but two (or more) interpretations of a larger span. In this case, the <code>(x|y)</code> pattern is broken across multiple lines.</p>
+<p>In <code>**depend</code>, ambiguous syntactic parses should be split into two (or more) spine paths. To make the difference between paths clear, paths should encompass the entire area of possible syntactic dependency, even if there is redundancy between parts of the paths. In other words, even if only a few words are ambiguous, two entirely seperate syntactic parses should be written to cover all the surrounding dependencies—paths should never refer to dependencies outside the path. For example:</p>
+<pre><code>**silbe     **depend
+*           *^
+I am        ROOT           ROOT
+a           det&gt;disease    det&gt;disease
+ve-         adj&gt;disease    adj&gt;disease
+-ner-       .              .
+-e-         .              .
+-al         .              .
+di-         obj&lt;am         obj&lt;am
+-sease(.    .              .
+like        prop&lt;disease   prop&gt;bleed
+a           det&gt;bleed      det&gt;menstrual
+men-        adj&gt;bleed      pobj&lt;like
+-strual     .              .
+bleed.)     pobj&lt;like      ROOT
+through     X              propcl&lt;bleed   
+this        det&gt;pencil     det&gt;pencil
+pen-        obj&lt;through    obj&lt;through
+-cil.       .              .
+*           *v             *v
+*-          *-</code></pre>
+<p>In this example, the ambiguity regards the words “like a menstrual bleed”: “menstrual” might <em>either</em> be a adjective modiying the noun “bleed” <em>or</em> a noun, simply serving as the object of the prepositional phrase “like a menstrual.” In other words, it’s either <code>(like (a menstrual bleed)(</code> or <code>(like a menstrual) (bleed through this pencil)</code>. This ambiguity makes it so the location of total syntactic independence (hard stop) is unclear: it may be after “disease” or after “bleed.” A <code>parentheses</code> are placed before/after the <code>.</code> in the <code>**silbe</code> spine to indicate two <code>.</code> that may swap position. With these two ambiguous <code>.</code>, the entire range of words from “I’m a” to “this pencil” function as one region of <em>possible</em> syntactic dependence—even though, they will inevitably be interpreted as two syntactic utterances, with two possible interpretations. The entide area of possible syntactic dependence should be included in each spine pipe, even though only part of the area is ambiguous. In the <code>**silbe</code> spine there is either a <code>.</code> after “disease” or after “bleed,” but not after both (or neither)!</p>
+<p>Note that in the example above, one of the syntactic parses is ill formed: interepreting “menstrual” as an adjective leads to a disjunction when “through” arrives. Ambiguous syntactic parses may or may not include such ill-formed parses. Generally, the left-most spine path should indicate a “forward hearing” of the passage, as experiencing it in real time.</p>
+<h4 id="tags">Tags</h4>
+<p>Many utterances are proceeded, succeeded, or intersperesed by elements which are not clearly linked to the syntactic structure of the sentence, but serve an expressive role. These are marked with the discourse tag. One example is saying “Well” or “Gosh” before beginning a sentence. Another example is “tag questions,” as in “You aren’t going to the beach are you?.” These are associated with <code>vocative</code> and <code>discourse</code> tags in <code>**depend</code>.</p>
+<p>Non syntactic elements that are not clearly “attached” to a syntactic unit, should be marked with <code>!</code>, on each and every element! This could include expletives. Tags that are associated with a unit are marked with either <code>/</code> (prefix) or <code>\</code> (affix)—both <code>/</code> and <code>\</code> are used for infixes:</p>
+<pre><code>**silbe  **depend
+you      nsubj&gt;know
+know/    discourse&gt;thought
+I        nsubj&gt;thought
+ne-      advmod&gt;thought
+-ver     .
+thought  ROOT
+that     mark&gt;go
+things   nsubj&gt;go
+shit!    .
+could    aux&gt;go
+go       ccomp&lt;thought
+so       advmod&gt;wrong
+wrong\   advmod&lt;go
+did      discourse&lt;thought
+you?     nsubj&lt;did
+*-       *-</code></pre>
+<p>Nonsense vocables should be marked in a manner similar to <code>!</code>, but use <code>~</code>.</p>
+<pre><code>**silbe
+ah~
+girl
+can
+you
+re-
+-mem-
+-ber
+ah~
+danc-
+-ing
+in
+sep-
+-tem-
+-ber.?
+*-</code></pre>
+<h4 id="repetition">Repetition</h4>
+<p>The most unique case for musical lyrics is repetition. If a syntactic utterance includes internal repetition <code>|</code> is marked wherever repetition starts.</p>
+<h2 id="part-of-speech">Part of Speech</h2>
+<p>The <code>**POS</code> spine indicates the “part of speech” (e.g., verb, noun, adjective) for each lexical item. POS tags are aligned with the first syllable of each lexical item, with null tokens aligned with all other syllables. Recognized POS tags are:</p>
+<h2 id="rhyme">Rhyme</h2>
+<p>Rhyme is annotated in the <code>**rhyme</code> spine, following the style set forth in MCFlow.</p>
+<h1 id="annotation-workflow">Annotation Workflow</h1>
+<p>Our current approach to constructing CoCoPops-style lyrics annotations is as follows. Our work flow combines human annotation with automated steps.</p>
+<h2 id="silbe"><code>**silbe</code></h2>
+<ol type="1">
+<li>Lyrics are input directly into melodic transcriptions, indicating musical alignment (number of syllables, melisma, etc.).</li>
+<li>Lyrics are automatically converted to all lower-case and punctuation is removed.</li>
+<li>Lyrics are spot checked and edited for:</li>
+</ol>
+<ul>
+<li>Correctness (referencing music itself and/or websites)</li>
+<li>Proper nouns are capitalized.</li>
+<li>Multi-word lexical items are indicated (adding <code>_</code> as necessary).</li>
+<li>Convert to standard spelling.</li>
+</ul>
+<ol start="4" type="1">
+<li>Syntactic punctuation is added.</li>
+</ol>
+<h2 id="depend-and-pos"><code>**depend</code> and <code>**pos</code></h2>
+<p>Once <code>**silbe</code> spines are prepared, we further prepare the text for automatic analysis. Since lyrics make use of many slang words and proper nouns, we preprocess the <code>**silbe</code> lyrics:</p>
+<ol type="1">
+<li>Copy <code>**silbe</code> into a new spine.</li>
+<li>In the new spine begin manually converting slang and unusual words to similar words of the same POS which match the dependency structure. For example, “cheddar” could be translated to “money”—depending on context of course!
+<ul>
+<li>Proper names can be converted to common names like “Mary Smith.”</li>
+<li>Multi-word lexical items should be collapsed to a single word representing a similar meaning/category.</li>
+</ul></li>
+<li>Parentheticals are removed from elisions, wherever possible, forming coherent syntactic utterances.</li>
+<li>For any ambiguous passages, the annotator chooses one analysis and removes alternative punctuation.</li>
+</ol>
+<p>Once the preprocessed spine is complete, we use automated functions (humdrum toolkit) to collapse syllables to single words, and collapse and syntactic units (marked by either <code>.</code>, <code>;</code>, <code>:</code>, or <code>,</code> into single lines). Care must be taken to make sure that the original position of the first syllable of each lexical item in the output.</p>
+<ol type="1">
+<li>The text lines from the previous step are fed into the Stanford dependency parser, to generate dependency and POS tags.</li>
+<li>The Stanford parsers’ output is converted to our target format (i.e., <code>det&gt;ladies</code>).</li>
+<li>The dependency and POS outputs are padded with null tokens and realign with the humdrum data.</li>
+</ol>
+<p>In the final step, the <code>**depend</code> and <code>**pos</code> data is spot-checked by human annotators.</p>
